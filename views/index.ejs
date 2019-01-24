@@ -15,14 +15,17 @@
         <textarea name="message" rows=10 cols=50></textarea>
         <input type="submit" value="Send"></input>
     </form>
-
-    <ul class="messages">
-            <% for(var i=0; i<messages.length; i++) {%>
-              <li class="message">
-                <span><%= messages[i].id %></span>
-                <span><%= messages[i].text %></span>
-              </li>
-            <% } %>
+    <br>
+    <br>
+    <hr>
+    <br>
+    <b>Number of Messages Persisted in DB:<%= messages.length %></b>
+    <ul>
+        <% for(var i=0; i<messages.length; i++) {%>
+            <li >
+                <span><%= messages[i].id %></span> - <span><%= messages[i].text %></span>
+            </li>
+        <% } %>
     </ul>
 </body>
 </html>
