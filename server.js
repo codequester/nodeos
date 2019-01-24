@@ -1,20 +1,24 @@
-console.log('May Node be with you')
+var express = require('express'),
+    fs = require('fs'),
+    app = express();
+//    eps = require('ejs'),
+//    morgan = require('morgan');
 
-const express = require('express');
-const bodyParser= require('body-parser')
-const app = express();
+var app = express();
 
-app.use(bodyParser.urlencoded({extended: true}))
+var ip = process.env.IP || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
 
-app.listen(3000, function() {
-    console.log('listening on 3000')
-  })
 
-  app.get('/', function (req, res) {
-    //res.send('Hello World')
-    res.sendFile(__dirname + '/index.html')
-  })
 
-  app.post('/quotes', (req, res) => {
-    console.log(req.body)
-  })
+// app is running!
+app.get('/', function(req, res) {
+    res.send('Hello from NodeJS  at '+ new Date());
+});
+
+
+
+app.listen(8080, ip);
+
+
+
+module.exports = app;
