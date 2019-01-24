@@ -16,7 +16,7 @@ app.listen(8080, function() {
 
   app.get('/', function (req, res) {
     //res.send('Hello World')
-    request('http://amq-producer-wkshp-demo.127.0.0.1.nip.io/messages', function(err, response, body){
+    request('http://amq-producer:8080/messages', function(err, response, body){
         if (err) return console.log(err)
         console.log('Respons Is -->' + response.statusCode)
         console.log(body)
@@ -27,7 +27,7 @@ app.listen(8080, function() {
 
   app.post('/sendmsg', (req, res) => {
     console.log(req.body.message)
-    request('http://amq-producer-wkshp-demo.127.0.0.1.nip.io/produce?msg='+ req.body.message, function(err, body){
+    request('http://amq-producer:8080/produce?msg='+ req.body.message, function(err, body){
         if (err) return console.log(err)
         console.log('Message Published Successfully')
         //console.log(body)
