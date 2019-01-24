@@ -1,24 +1,27 @@
-var express = require('express'),
-    fs = require('fs'),
-    app = express();
-//    eps = require('ejs'),
-//    morgan = require('morgan');
+console.log('Openshift Demo - Frontend')
 
-var app = express();
+const express = require('express');
+const bodyParser= require('body-parser')
+const app = express();
 
-var ip = process.env.IP || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
+var request = require('request')
 
+app.use(bodyParser.urlencoded({extended: true}))
 
+app.listen(8080, function() {
+    console.log('listening on 8080')
+  })
 
-// app is running!
-app.get('/', function(req, res) {
-    res.send('Hello from NodeJS  at '+ new Date());
-});
+  app.get('/', function (req, res) {
+    //res.send('Hello World')
+    res.sendFile(__dirname + '/index.html')
+  })
 
+  app.post('/sendmsg', (req, res) => {
+    console.log(req.body)
+    request('http://amq-producer-wkshp-demo.127.0.0.1.nip.io/produce?msg=abcd', function(err, body){
+        res.json(body); //res is the response object, and it passes info back to client side
+    });
+  })
 
-
-app.listen(8080, ip);
-
-
-
-module.exports = app;
+  
